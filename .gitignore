@@ -1,6 +1,7 @@
-# Ignore .env files
-.env
-.env.test
+# folders "var" and "vendor" are hidden
+
+# .env
+# .env.test
 
 ###> symfony/framework-bundle ###
 /.env.local
