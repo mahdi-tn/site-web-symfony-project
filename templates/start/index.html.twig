@@ -1,20 +1,89 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello StartController!{% endblock %}
+{% block title %}Hello StartController!
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	{% include "header.html.twig" %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+	<div class="example-wrapper">
+		<h1>Hello
+			{{ controller_name }}! ✅</h1>
+	</div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+	<div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
+		<div class="hero__text">
+			<span>NEW DROP</span>
+			<h2>
+				<br/>100% eco-friendly</h2>
+			<p>Free Pickup and Delivery Available</p>
+			<a href="/shop-grid.html" class="primary-btn">SHOP NOW</a>
+		</div>
+	</div><br><br><br><br><br><br>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/PCuser/Desktop/1MP_NTEB/S2/Dev Web Avancé/project/site-web/src/Controller/StartController.php</code></li>
-        <li>Your template at <code>C:/Users/PCuser/Desktop/1MP_NTEB/S2/Dev Web Avancé/project/site-web/templates/start/index.html.twig</code></li>
-    </ul>
-</div>
+	<!-- Categories Section Begin -->
+	<section class="categories">
+		<div class="container">
+			<div class="row">
+				<div class="categories__slider owl-carousel">
+					<div class="col-lg-3">
+						<div class="categories__item set-bg">
+							<img class="img-s" src="json-server/public/images/1001SPolarizedBLXM9.png" alt="">
+							<h5>
+								<a href="#">PolarizedBLXM9</a>
+							</h5>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="categories__item set-bg">
+							<img class="img-s" src="json-server/public/images/BE4291346487.png" alt="">
+							<h5>
+								<a href="#">BE4291346487</a>
+							</h5>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="categories__item set-bg">
+							<img class="img-s" src="json-server/public/images/CA8045CSwithClip-On9N75X.png" alt="">
+							<h5>
+								<a href="#">CA8045CSwithClip-On9N75X</a>
+							</h5>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="categories__item set-bg">
+							<img class="img-s" src="json-server/public/images/ConnellyWithClip-OnFourSetU-0220M04.png" alt="">
+							<h5>
+								<a href="#">WithClip-OnFourSetU-0220M04</a>
+							</h5>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="categories__item set-bg">
+							<img class="img-s" src="json-server/public/images/TH1586C9A.png" alt="">
+							<h5>
+								<a href="#">TH1586C9A</a>
+							</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Categories Section End -->
+	{% include "footer.html.twig" %}
 {% endblock %}

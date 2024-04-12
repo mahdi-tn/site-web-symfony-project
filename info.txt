@@ -29,32 +29,12 @@ SYMFONY_DEPRECATIONS_HELPER
 PANTHER_APP_ENV
 PANTHER_ERROR_SCREENSHOT_DIR
 
-inside .gitignore :
-# Ignore .env files
-.env
-.env.test
 
-###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
-/var/
-/vendor/
-###< symfony/framework-bundle ###
+>> symfony console doctrine:database:create
+(will create database with the name in '.env' file)
+>> symfony console make:entity
+(insertion tables and columns)
+>> symfony console make:migration
+>> symfony console doctrine:migrations:migrate
 
-###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
-
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
-
-###> symfony/asset-mapper ###
-/public/assets/
-/assets/vendor/
-###< symfony/asset-mapper ###
+composer require symfony/property-info
