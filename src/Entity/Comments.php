@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CommentsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\PrePersist;
 // Assert for validation
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -40,8 +41,19 @@ class Comments
     private ?string $comment = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\NotBlank]
     private ?\DateTimeInterface $date = null;
+    #[PrePersist]
+    public function setDefaultDate(): void
+    {
+        // Set the current date if the date property is not already set
+        if ($this->date === null) {
+            $this->date = new \DateTime();
+        }
+    }
+
+    #[ORM\Column(length: 50)]
+    #[Assert\Email]
+    private ?string $userEmail = null;
 
     public function getId(): ?int
     {
@@ -51,6 +63,12 @@ class Comments
     public function getProduct(): ?Products
     {
         return $this->product;
+    }
+
+    public function setProduct(?Products $product): self
+    {
+        $this->product = $product;
+        return $this;
     }
 
     public function getRating(): ?int
@@ -73,7 +91,6 @@ class Comments
     public function setComment(string $comment): static
     {
         $this->comment = $comment;
-
         return $this;
     }
 
@@ -82,9 +99,20 @@ class Comments
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    // public function setDate(\DateTimeInterface $date): static
+    // {
+    //     $this->date = $date;
+    //     return $this;
+    // }
+
+    public function getUserEmail(): ?string
     {
-        $this->date = $date;
+        return $this->userEmail;
+    }
+
+    public function setUserEmail(string $userEmail): static
+    {
+        $this->userEmail = $userEmail;
 
         return $this;
     }

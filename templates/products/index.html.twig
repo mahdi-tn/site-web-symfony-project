@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products index
+{% endblock %}
+
+{% block body %}
+	{% include "header.html.twig" %}
+
+	<div class="container">
+		<h1>Products index</h1>
+		<br>
+		<a class="btn btn-primary" href="{{ path('app_start') }}">retour</a>
+		<a class="btn btn-primary" href="{{ path('app_products_new') }}">Create new</a>
+		<table class="table" id="myTable">
+			<thead>
+				<tr>
+					<th>P_name</th>
+					<th>P_stock</th>
+					<th>P_price</th>
+					<th>P_img</th>
+					<th>P_category</th>
+					<th>P_color</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for product in products %}
+					<tr>
+						<td>{{ product.pName }}</td>
+						<td>{{ product.pStock }}</td>
+						<td>{{ product.pPrice }}</td>
+						<td><img class="test" src="{{ product.pImg }}" alt="img"></td>
+						<td>{{ product.pCategory }}</td>
+						<td>{{ product.pColor }}</td>
+						<td>
+							<a class="btn btn-primary" href="{{ path('app_products_show', {'p_ref': product.pRef}) }}">show</a>
+							<a class="btn btn-primary" href="{{ path('app_products_edit', {'p_ref': product.pRef}) }}">edit</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="8">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% include "footer.html.twig" %}
+{% endblock %}
+
+{% block stylesheets %}
+	<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css' , null, false)}}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/elegant-icons.css' , null, false)}}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/nice-select.css' , null, false)}}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css' , null, false)}}" type="text/css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
+	<link rel="stylesheet" href="{{ asset('css/slicknav.min.css' , null, false)}}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/style.css' , null, false)}}" type="text/css">
+{% endblock %}
+{% block javascripts %}
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+	<script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
+	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+	<script src="{{ asset('js/jquery.slicknav.js') }}"></script>
+	<script src="{{ asset('js/mixitup.min.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js"></script>
+	<script src="{{ asset('js/main2.js') }}"></script>
+
+	<script>
+		let table = new DataTable('#myTable');
+$(document).ready(function () {
+$('#myTable').DataTable({});
+});
+	</script>
+{% endblock %}

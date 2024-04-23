@@ -1,0 +1,253 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello StartController!
+{% endblock %}
+
+{% block body %}
+	{% include "header.html.twig" %}
+
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<div id="header"></div>
+
+
+	<!-- Shoping Cart Section Begin -->
+	<section class="shoping-cart spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+
+					<div id="cartDisplay" class="shoping__cart__table"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="shoping__cart__btns">
+						<a href="/" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="shoping__continue">
+						<div class="shoping__discount">
+							<h5>Discount Codes</h5>
+							<form action="#">
+								<input type="text" placeholder="Enter your coupon code">
+								<button type="submit" class="site-btn">APPLY COUPON</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="shoping__checkout">
+					<form id="frm">
+						<input type="hidden" id="productRefs" name="productRefs">
+						<h5>Cart Total</h5>
+						<input type="hidden" id="productRefs" name="p_ref">
+						<ul>
+							<li>Total avant remise:
+								<span id="toDisplay" name="prixAR">0.0</span>
+							</li>
+							<li>Remise
+								<span id="remise" name="remise">0%</span>
+							</li>
+							<li>Total
+								<span id="totalDisplay" name="prix">0.0</span>
+							</li>
+						</ul>
+						<button class="primary-btn" type="submit">PLACE commande</button>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Shoping Cart Section End -->
+
+	{% include "footer.html.twig" %}
+{% endblock %}
+
+{% block stylesheets %}
+	<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css' , null, false)}}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/elegant-icons.css' , null, false)}}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/nice-select.css' , null, false)}}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css' , null, false)}}" type="text/css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
+	<link rel="stylesheet" href="{{ asset('css/slicknav.min.css' , null, false)}}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/style.css' , null, false)}}" type="text/css">
+{% endblock %}
+{% block javascripts %}
+
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+	<script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
+	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+	<script src="{{ asset('js/jquery.slicknav.js') }}"></script>
+	<script src="{{ asset('js/mixitup.min.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js"></script>
+	<script src="{{ asset('js/main2.js') }}"></script>
+
+
+	<script>
+	window.onload = function () {
+		if (!localStorage.getItem('cart')) {
+			localStorage.setItem('cart', JSON.stringify({ products: [] }));
+		}
+
+		function addToCart(ref, name, price, quantity, category, color) {
+			var cart = JSON.parse(localStorage.getItem('cart'));
+			var product = {
+				ref: ref,
+				name: name,
+				price: price,
+				quantity: quantity,
+				category: category,
+				color: color
+			};
+			cart.products.push(product);
+			localStorage.setItem('cart', JSON.stringify(cart));
+			console.log(product);
+		}
+
+		function dateCartDisplay() {
+			var cart = JSON.parse(localStorage.getItem('cart'));
+			var displayElement = document.getElementById('cartDisplay');
+			displayElement.innerHTML = ''; // Clear the display element
+
+			var totalElement = document.getElementById('totalDisplay');
+			var toElement = document.getElementById('toDisplay');
+			var remiseElement = document.getElementById('remise');
+			var total = 0;
+
+			for (var i = 0; i < cart.products.length; i++) {
+				var product = cart.products[i];
+				total += parseFloat(product.price) * product.quantity; // multiply price by quantity
+			}
+			
+			if(total > 100){
+				remiseElement.textContent = "10%";
+			}
+			totalElement.textContent = (total*0.9).toFixed(3);
+			toElement.textContent = total.toFixed(3);
+
+			var table = document.createElement('table');
+			table.style.border = '1px solid black';
+
+			var productRefs = [];
+			for (var i = 0; i < cart.products.length; i++) {
+				var product = cart.products[i];
+				productRefs.push(product.ref);
+			}
+
+			var hiddenField = document.getElementById('productRefs');
+			hiddenField.value = JSON.stringify(productRefs);
+
+
+			var thead = document.createElement('thead');
+			var headerRow = document.createElement('tr');
+			headerRow.innerHTML = `
+						<th>ref</th>
+						<th>Product</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>.</th>
+					`;
+			thead.appendChild(headerRow);
+			table.appendChild(thead);
+
+			var tbody = document.createElement('tbody');
+
+			for (var i = 0; i < cart.products.length; i++) {
+				var product = cart.products[i];
+
+				var row = document.createElement('tr');
+
+				var refData = document.createElement('td');
+				refData.textContent = product.ref;
+				var nameData = document.createElement('td');
+				nameData.textContent = product.name;
+				var priceData = document.createElement('td');
+				priceData.textContent = product.price;
+				var quantityData = document.createElement('td');
+				quantityData.textContent = product.quantity;
+
+				var removeButtonData = document.createElement('td');
+				var removeButton = document.createElement('button');
+				removeButton.textContent = 'Remove';
+				removeButton.onclick = (function (product) {
+					return function () {
+						for (var j = 0; j < cart.products.length; j++) {
+							if (cart.products[j].ref === product.ref) { // Remove the product from the cart
+								cart.products.splice(j, 1);
+								break;
+							}
+						}
+
+						// Update the cart in local storage
+						localStorage.setItem('cart', JSON.stringify(cart));
+
+						// Update the cart display
+						dateCartDisplay();
+					};
+				})(product);
+
+				removeButtonData.appendChild(removeButton);
+
+				row.appendChild(refData);
+				row.appendChild(nameData);
+				row.appendChild(priceData);
+				row.appendChild(quantityData);
+				row.appendChild(removeButtonData);
+
+				tbody.appendChild(row);
+			}
+
+			table.appendChild(tbody);
+
+			displayElement.appendChild(table);
+		}
+		dateCartDisplay();
+
+		// dorm input commande
+		const form = document.querySelector('#frm');
+
+		form.addEventListener('submit', function(event) {
+			event.preventDefault();
+
+			const productRefs = JSON.parse(document.getElementById('productRefs').value);
+			const userEmail = "user@gmail.com";
+			const prix = document.getElementById('toDisplay').innerText;
+			const prix_total = document.getElementById('totalDisplay').innerText;
+
+			const formData = new FormData();
+			formData.append('productRefs', productRefs);
+			formData.append('userEmail', userEmail);
+			formData.append('prix', prix);
+			formData.append('prix_total', prix_total);
+
+			fetch('{{ path('app_commandes_new') }}', {
+				method: 'POST',
+				body: formData
+			})
+			.then(response => {
+				if (response.ok) {
+					return window.location.href = response.url;
+				} else {
+					throw new Error('Response not ok');
+				}
+			})
+			.catch(error => {
+				console.error('Error submitting form:', error);
+			});
+		});
+	}
+
+	</script>
+{% endblock %}

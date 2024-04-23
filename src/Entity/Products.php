@@ -76,7 +76,7 @@ class Products
     public function __construct()
     {
         $this->comments = new ArrayCollection();
-        $this->p_img = "no link"; // Default value
+        $this->p_img = "noLink"; // Default value
         $this->p_category = "no category was set"; // Default value
         $this->p_color = "no color was set"; // Default value
     }
@@ -102,7 +102,6 @@ class Products
     public function setPRef(string $p_ref): static
     {
         $this->p_ref = $p_ref;
-
         return $this;
     }
 

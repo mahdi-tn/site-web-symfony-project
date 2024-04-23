@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commandes
+{% endblock %}
+
+{% block body %}
+	<h1>Commandes</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ commande.id }}</td>
+			</tr>
+			<tr>
+				<th>User</th>
+				<td>{{ commande.user }}</td>
+			</tr>
+			<tr>
+				<th>Produits</th>
+				<td>{{ commande.produits ? commande.produits|json_encode : '' }}</td>
+			</tr>
+			<tr>
+				<th>Prix</th>
+				<td>{{ commande.prix }}</td>
+			</tr>
+			<tr>
+				<th>Prix_total</th>
+				<td>{{ commande.prixTotal }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a class="btn btn-primary" href="{{ path('app_commandes_index') }}">back to list</a>
+
+	<a class="btn btn-primary" href="{{ path('app_commandes_edit', {'id': commande.id}) }}">edit</a>
+
+	{{ include('commandes/_delete_form.html.twig') }}
+{% endblock %}

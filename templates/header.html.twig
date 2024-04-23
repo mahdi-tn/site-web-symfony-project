@@ -2,14 +2,14 @@
 <div class="humberger__menu__overlay"></div>
 <div class="humberger__menu__wrapper">
 	<div class="humberger__menu__logo">
-		<a href="#"><img src="img/logo.png" alt="img"></a>
+		<a href=""><img src="{{ asset('img/logo.png') }}" alt="Example Image"></a>
 	</div>
 	<div class="humberger__menu__cart">
 		<ul>
 			<li>
-				<a href="#">
+				<a href="">
 					<i class="fa fa-shopping-bag"></i>
-					<span class="cartDisplay">0</span>
+					<span class="ScartDisplay">0</span>
 				</a>
 			</li>
 		</ul>
@@ -19,16 +19,16 @@
 	</div>
 	<div class="humberger__menu__widget">
 		<div class="header__top__right__language">
-			<img src="img/language.png" alt="img">
+			<img src="{{ asset('img/language.png') }}" alt="Example Image">
 			<div>English</div>
 			<span class="arrow_carrot-down"></span>
 			<ul>
-				<li><a href="#">test</a></li>
-				<li><a href="#">English</a></li>
+				<li><a href="">test</a></li>
+				<li><a href="">English</a></li>
 			</ul>
 		</div>
 		<div class="header__top__right__auth">
-			<a href="#">
+			<a href="">
 				<i class="fa fa-user"></i>
 				Login</a>
 		</div>
@@ -36,35 +36,31 @@
 	<nav class="humberger__menu__nav mobile-menu">
 		<ul>
 			<li>
-				<a href="./index.html">Home</a>
+				<a href="/">Home</a>
 			</li>
 			<li>
-				<a href="./shop-grid.html">Shop</a>
+				<a href="{{ path('app_products_index') }}">Shop</a>
 			</li>
+			{# <li><a href="{{ path('app_commandes_details') }}">Shop Details</a></li> #}
 			<li>
-				<a href="./shop-details.html">Shop Details</a>
-			</li>
-			<li>
-				<a href="./shoping-cart.html">Shoping Cart</a>
+				<a href="{{ path('app_commandes_cart') }}">Shoping Cart</a>
 			</li>
 			<!-- <li><a href="./checkout.html">Check Out</a></li> -->
-			<li>
-				<a href="./contact.html">Contact</a>
-			</li>
+			{# <li><a href="./contact.html">Contact</a></li> #}
 		</ul>
 	</nav>
 	<div id="mobile-menu-wrap"></div>
 	<div class="header__top__right__social">
-		<a href="#">
+		<a href="">
 			<i class="fa fa-facebook"></i>
 		</a>
-		<a href="#">
+		<a href="">
 			<i class="fa fa-twitter"></i>
 		</a>
-		<a href="#">
+		<a href="">
 			<i class="fa fa-linkedin"></i>
 		</a>
-		<a href="#">
+		<a href="">
 			<i class="fa fa-pinterest-p"></i>
 		</a>
 	</div>
@@ -97,30 +93,30 @@
 				<div class="col-lg-6 col-md-6">
 					<div class="header__top__right">
 						<div class="header__top__right__social">
-							<a href="#">
+							<a href="">
 								<i class="fa fa-facebook"></i>
 							</a>
-							<a href="#">
+							<a href="">
 								<i class="fa fa-twitter"></i>
 							</a>
-							<a href="#">
+							<a href="">
 								<i class="fa fa-linkedin"></i>
 							</a>
-							<a href="#">
+							<a href="">
 								<i class="fa fa-pinterest-p"></i>
 							</a>
 						</div>
 						<div class="header__top__right__language">
-							<img src="img/language.png" alt="img">
+							<img src="{{ asset('img/language.png') }}" alt="Example Image">
 							<div>English</div>
 							<span class="arrow_carrot-down"></span>
 							<ul>
-								<li><a href="#">test</a></li>
-								<li><a href="#">English</a></li>
+								<li><a href="">test</a></li>
+								<li><a href="">English</a></li>
 							</ul>
 						</div>
 						<div class="header__top__right__auth">
-							<a href="#">
+							<a href="">
 								<i class="fa fa-user"></i>
 								Login</a>
 						</div>
@@ -133,28 +129,24 @@
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="./index.html"><img src="img/logo.png" alt="img"></a>
+					<a href="./"><img src="{{ asset('img/logo.png') }}" alt="Example Image"></a>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul>
 						<li>
-							<a href="./index.html">Home</a>
+							<a href="/">Home</a>
 						</li>
 						<li>
-							<a href="./shop-grid.html">Shop</a>
+							<a href="{{ path('app_products_index') }}">Shop</a>
 						</li>
+						{# <li><a href="{{ path('app_commandes_details') }}">Shop Details</a></li> #}
 						<li>
-							<a href="./shop-details.html">Shop Details</a>
-						</li>
-						<li>
-							<a href="./shoping-cart.html">Shoping Cart</a>
+							<a href="{{ path('app_commandes_cart') }}">Shoping Cart</a>
 						</li>
 						<!-- <li><a href="./checkout.html">Check Out</a></li> -->
-						<li>
-							<a href="./contact.html">Contact</a>
-						</li>
+						{# <li><a href="./contact.html">Contact</a></li> #}
 					</ul>
 				</nav>
 			</div>
@@ -164,7 +156,7 @@
 						<li>
 							<a href="/shoping-cart.html">
 								<i class="fa fa-shopping-bag"></i>
-								<span class="cartDisplay">0</span>
+								<span class="ScartDisplay">0</span>
 							</a>
 						</li>
 					</ul>
@@ -193,29 +185,31 @@
 					</div>
 					<ul style="display: none;position: absolute;background-color: white;z-index: 1;padding-right: 50%;">
 						<li>
-							<a href="#">TEST 1</a>
+							<a href="">TEST 1</a>
 						</li>
 						<li>
-							<a href="#">TEST 2</a>
+							<a href="">TEST 2</a>
 						</li>
 						<li>
-							<a href="#">TEST 3</a>
+							<a href="">TEST 3</a>
 						</li>
 						<li>
-							<a href="#">TEST 4</a>
+							<a href="">TEST 4</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 			<div class="col-lg-9">
 				<div class="hero__search">
-					<div class="hero__search__form">
-						<form action="#">
+					<div
+						class="hero__search__form">
+						{# input search form #}
+						<form action="{{ path('app_products_display') }}" method="GET">
 							<div class="hero__search__categories">
 								All Categories
 								<span class="arrow_carrot-down"></span>
 							</div>
-							<input type="text" placeholder="What do yo u need?">
+							<input type="text" id="UsrInput" name="UsrInput" placeholder="What do you need?">
 							<button type="submit" class="site-btn">SEARCH</button>
 						</form>
 					</div>

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commandes index
+{% endblock %}
+
+{% block body %}
+	{% include "header.html.twig" %}
+
+	<div class="container">
+		<h1>Commandes index</h1>
+		<br>
+		<a class="btn btn-primary" href="{{ path('app_start') }}">retour</a>
+		<a class="btn btn-primary" href="{{ path('app_commandes_new') }}">Create new</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>User</th>
+					<th>Produits</th>
+					<th>Prix</th>
+					<th>Prix_total</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if commandes is not defined %}
+					<tr>
+						<td colspan="6">no records found</td>
+					</tr>
+				{% else %}
+
+					{% for commande in commandes %}
+						<tr>
+							<td>{{ commande.id }}</td>
+							<td>{{ commande.user }}</td>
+							<td>{{ commande.produits ? commande.produits|json_encode : '' }}</td>
+							<td>{{ commande.prix }}</td>
+							<td>{{ commande.prixTotal }}</td>
+							<td>
+								<a class="btn btn-primary" href="{{ path('app_commandes_show', {'id': commande.id}) }}">show</a>
+								<a class="btn btn-primary" href="{{ path('app_commandes_edit', {'id': commande.id}) }}">edit</a>
+							</td>
+						</tr>
+
+					{% endfor %}
+				{% endif %}
+
+				{% if app.request.get('rep') is defined %}
+					<script>
+						console.log("rep value:   {{ app.request.get('rep') }}");
+					</script>
+				{% endif %}
+
+			</tbody>
+		</tbody>
+	</table>
+</div>
+{% include "footer.html.twig" %}{% endblock %}
