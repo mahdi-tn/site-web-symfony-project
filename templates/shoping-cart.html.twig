@@ -42,23 +42,26 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="shoping__checkout">
-					<form id="frm">
-						<input type="hidden" id="productRefs" name="productRefs">
-						<h5>Cart Total</h5>
-						<input type="hidden" id="productRefs" name="p_ref">
-						<ul>
-							<li>Total avant remise:
-								<span id="toDisplay" name="prixAR">0.0</span>
-							</li>
-							<li>Remise
-								<span id="remise" name="remise">0%</span>
-							</li>
-							<li>Total
-								<span id="totalDisplay" name="prix">0.0</span>
-							</li>
-						</ul>
-						<button class="primary-btn" type="submit">PLACE commande</button>
-					</form>
+					
+						<form id="frm">
+							<input type="hidden" id="_csrf_token" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+							{# <input type="hidden" id="_token" name="_token" value="{{ csrf_token('app_commandes_new2') }}"> #}
+							<input type="hidden" id="productRefs" name="productRefs">
+							<h5>Cart Total</h5>
+							<input type="hidden" id="productRefs" name="p_ref">
+							<ul>
+								<li>Total avant remise:
+									<span id="toDisplay" name="prixAR">0.0</span>
+								</li>
+								<li>Remise
+									<span id="remise" name="remise">0%</span>
+								</li>
+								<li>Total
+									<span id="totalDisplay" name="prix">0.0</span>
+								</li>
+							</ul>
+							<button class="primary-btn" type="submit">PLACE commande</button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -128,13 +131,16 @@
 
 			for (var i = 0; i < cart.products.length; i++) {
 				var product = cart.products[i];
-				total += parseFloat(product.price) * product.quantity; // multiply price by quantity
+				total += parseFloat(product.price) * product.quantity;
 			}
 			
 			if(total > 100){
 				remiseElement.textContent = "10%";
+				totalElement.textContent = (total*0.9).toFixed(3);
+			}else {
+				remiseElement.textContent = "0%";
+				totalElement.textContent = (total*1).toFixed(3);
 			}
-			totalElement.textContent = (total*0.9).toFixed(3);
 			toElement.textContent = total.toFixed(3);
 
 			var table = document.createElement('table');
@@ -227,14 +233,21 @@
 			const prix_total = document.getElementById('totalDisplay').innerText;
 
 			const formData = new FormData();
-			formData.append('productRefs', productRefs);
 			formData.append('userEmail', userEmail);
+			formData.append('productRefs', productRefs);
 			formData.append('prix', prix);
 			formData.append('prix_total', prix_total);
+			const csrfToken = document.querySelector('input[name="_csrf_token"]').value;
+ 			// formData.append('_token', document.querySelector('[id="_token"]').value);
+			console.log(csrfToken);
 
-			fetch('{{ path('app_commandes_new') }}', {
-				method: 'POST',
-				body: formData
+			fetch('{{ path("app_commandes_new") }}', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRF-Token': csrfToken
+			},
+			body: JSON.stringify(Object.fromEntries(formData))
 			})
 			.then(response => {
 				if (response.ok) {

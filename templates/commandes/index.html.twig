@@ -15,7 +15,7 @@
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>User</th>
+					<th>UserEmail</th>
 					<th>Produits</th>
 					<th>Prix</th>
 					<th>Prix_total</th>
@@ -32,8 +32,8 @@
 					{% for commande in commandes %}
 						<tr>
 							<td>{{ commande.id }}</td>
-							<td>{{ commande.user }}</td>
-							<td>{{ commande.produits ? commande.produits|json_encode : '' }}</td>
+							<td>{{ commande.userEmail }}</td>
+							<td>{{ commande.productRefs }}</td>
 							<td>{{ commande.prix }}</td>
 							<td>{{ commande.prixTotal }}</td>
 							<td>
@@ -44,13 +44,11 @@
 
 					{% endfor %}
 				{% endif %}
-
-				{% if app.request.get('rep') is defined %}
-					<script>
-						console.log("rep value:   {{ app.request.get('rep') }}");
-					</script>
+				{% if app.request.query.has('rep') %}
+					<ul>
+						<li>{{ app.request.query.get('rep') }}</li>
+					</ul>
 				{% endif %}
-
 			</tbody>
 		</tbody>
 	</table>

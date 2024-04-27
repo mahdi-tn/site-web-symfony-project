@@ -20,7 +20,7 @@ class Commandes
     #[Assert\Email]
     private ?string $userEmail = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 250)]
     private ?string $productRefs = null;
 
     #[ORM\Column]
@@ -46,12 +46,12 @@ class Commandes
         return $this;
     }
 
-    public function getProductRefs(): ?array
+    public function getProductRefs(): ?string
     {
         return $this->productRefs;
     }
 
-    public function setProductRefs(array $productRefs): static
+    public function setProductRefs(string $productRefs): static
     {
         $this->productRefs = $productRefs;
 

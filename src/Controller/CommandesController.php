@@ -6,28 +6,15 @@ use App\Entity\Commandes;
 use App\Form\CommandesType;
 use App\Repository\CommandesRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
 use Psr\Log\LoggerInterface;
-
 
 #[Route('/commandes')]
 class CommandesController extends AbstractController
 {
-
-    private $logger;
-
-    public function __construct(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
-
-
-
     #[Route('/cart', name: 'app_commandes_cart', methods: ['GET'])]
     public function cart(): Response
     {
@@ -42,73 +29,34 @@ class CommandesController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_commandes_new', methods: ['POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, LoggerInterface $logger): Response
+    private $logger;
+    public function __construct(LoggerInterface $logger)
     {
-        // Log the start of the code snippet
-        $logger->info('Start of code snippet');
+        $this->logger = $logger;
+    }
 
-        // Log the creation of a new Commandes entity
-        $logger->info('Creating new Commandes entity');
-        $commande = new Commandes();
-        // Log the creation of the form
-        $logger->info('Creating form');
-        $form = $this->createForm(CommandesType::class, $commande);
+    #[Route('/new', name: 'app_commandes_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        try {
+            $data = json_decode($request->getContent(), true);
 
-        $formData = $form->getData();
+            $commande = new Commandes();
+            $form = $this->createForm(CommandesType::class, $commande);
+            // $form->handleRequest($request);
+            $form->submit($data);
 
-        // Dump the form data
-        dump($formData);
-        die;
-        $logger->error('Request formformform: {data}', ['data' => json_encode($form)]);
-
-        // Log the handling of the form request
-        $logger->info('Handling form request');
-        $form->handleRequest($request);
-
-        // Log the end of the code snippet
-        $logger->info('End of code snippet');
-
-        $rep = "pass";
-
-        // Log the request data
-        $requestData = $request->request->all();
-        $logger->error('Request Data: {data}', ['data' => json_encode($requestData)]);
-
-        if ($form->isSubmitted()) {
-            // Log the form data and submission status
-            $formData = $form->getData();
-            $isSubmitted = $form->isSubmitted();
-            $isValid = $form->isValid();
-            $logger->info('Form submitted with data: {data}, submitted: {submitted}, valid: {valid}', [
-                'data' => json_encode($formData),
-                'submitted' => $isSubmitted,
-                'valid' => $isValid,
-            ]);
-
-            if ($form->isValid()) {
+            // if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isSubmitted()) {
                 $entityManager->persist($commande);
                 $entityManager->flush();
-                $rep = "true";
 
-                return $this->redirectToRoute('app_commandes_index', ['rep' => $rep], Response::HTTP_SEE_OTHER);
-            } else {
-                $rep = "submitted, not valid";
-
-                // Log validation errors
-                $errors = $form->getErrors(true);
-                foreach ($errors as $error) {
-                    $logger->error('Validation Error: {error}', ['error' => $error->getMessage()]);
-                }
+                return $this->redirectToRoute('app_commandes_index', [], Response::HTTP_SEE_OTHER);
             }
-        } else {
-            $rep = "not submitted";
-            // Log that the form was not submitted
-            $logger->info('Form not submitted');
-            // Handle the case where the form is not submitted
+        } catch (\Exception $e) {
+            return $this->redirectToRoute('app_commandes_index', ['rep' => $e]);
         }
-
-        return $this->redirectToRoute('app_commandes_index', ['rep' => $rep]);
+        return $this->redirectToRoute('app_commandes_index', ['rep' => 'not pass']);
     }
 
     #[Route('/{id}', name: 'app_commandes_show', methods: ['GET'])]

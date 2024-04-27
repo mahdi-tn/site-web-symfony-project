@@ -15,10 +15,10 @@ use Doctrine\Common\Collections\Collection;
 class Products
 {
     #[ORM\Id]
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 50)]
     #[Assert\Length(
         min: 4,
-        max: 10,
+        max: 50,
         minMessage: 'Your p_ref must be at least {{ limit }} characters long',
         maxMessage: 'Your p_ref cannot be longer than {{ limit }} characters',
     )]
