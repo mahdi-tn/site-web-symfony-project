@@ -76,8 +76,8 @@
 		{% else %}
 			<p>Product not found.</p>
 		{% endif %}
-		<button id="ADDTOCARD" class="primary-btn">ADD TO CARD</button>
-		<a class="btn btn-primary" href="{{ path('app_comments_new', { 'p_ref': product.pRef }) }}">add new comment</a>
+		<a id="ADDTOCARD" class="primary-btn">ADD TO CARD</a>
+		<a class="primary-btn" href="{{ path('app_comments_new', { 'p_ref': product.pRef }) }}">add new comment</a>
 		<br>
 		<br>
 
@@ -95,15 +95,15 @@
 	<link rel="stylesheet" href="{{ asset('css/nice-select.css' , null, false)}}" type="text/css">
 	<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css' , null, false)}}" type="text/css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
+	{# <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css"> #}
+	<link rel="stylesheet" href="{{ asset('css/datatables.min.css' , null, false)}}" type="text/css">
 	<link rel="stylesheet" href="{{ asset('css/slicknav.min.css' , null, false)}}" type="text/css">
 	<link rel="stylesheet" href="{{ asset('css/style.css' , null, false)}}" type="text/css">
 {% endblock %}
 {% block javascripts %}
-
-
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+	{# <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script> #}
+	<script src="{{ asset('js/dataTables.min.js') }}"></script>
 	<script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
 	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
 	<script src="{{ asset('js/jquery.slicknav.js') }}"></script>

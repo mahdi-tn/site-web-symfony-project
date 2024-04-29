@@ -9,11 +9,12 @@
 	<div class="container">
 		<h1>Products index</h1>
 		<br>
-		<a class="btn btn-primary" href="{{ path('app_start') }}">retour</a>
+		<button class="primary-btn" href="{{ path('app_start') }}">retour</button>
 		<a class="btn btn-primary" href="{{ path('app_products_new') }}">Create new</a>
 		<table class="table" id="myTable">
 			<thead>
 				<tr>
+					<th>P_ref</th>
 					<th>P_name</th>
 					<th>P_stock</th>
 					<th>P_price</th>
@@ -26,6 +27,7 @@
 			<tbody>
 				{% for product in products %}
 					<tr>
+						<td>{{ product.pRef }}</td>
 						<td>{{ product.pName }}</td>
 						<td>{{ product.pStock }}</td>
 						<td>{{ product.pPrice }}</td>
@@ -33,7 +35,7 @@
 						<td>{{ product.pCategory }}</td>
 						<td>{{ product.pColor }}</td>
 						<td>
-							<a class="btn btn-primary" href="{{ path('app_products_show', {'p_ref': product.pRef}) }}">show</a>
+							<a class="btn primary-btn" href="{{ path('app_products_show', {'p_ref': product.pRef}) }}">show</a>
 							<a class="btn btn-primary" href="{{ path('app_products_edit', {'p_ref': product.pRef}) }}">edit</a>
 						</td>
 					</tr>
@@ -56,14 +58,17 @@
 	<link rel="stylesheet" href="{{ asset('css/elegant-icons.css' , null, false)}}" type="text/css">
 	<link rel="stylesheet" href="{{ asset('css/nice-select.css' , null, false)}}" type="text/css">
 	<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css' , null, false)}}" type="text/css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
+	<link
+	rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css">
+	{# <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css"> #}
+	<link rel="stylesheet" href="{{ asset('css/datatables.css' , null, false)}}" type="text/css">
 	<link rel="stylesheet" href="{{ asset('css/slicknav.min.css' , null, false)}}" type="text/css">
 	<link rel="stylesheet" href="{{ asset('css/style.css' , null, false)}}" type="text/css">
 {% endblock %}
 {% block javascripts %}
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+	{# <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script> #}
+	<script src="{{ asset('js/dataTables.js') }}"></script>
 	<script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
 	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
 	<script src="{{ asset('js/jquery.slicknav.js') }}"></script>
@@ -73,8 +78,18 @@
 
 	<script>
 		let table = new DataTable('#myTable');
-$(document).ready(function () {
-$('#myTable').DataTable({});
-});
+		$(document).ready(function () {
+			$('#myTable').DataTable({
+				drawCallback: function(settings) {
+					var api = this.api();
+					var rowCount = api.data().length;
+					
+					if (rowCount === 0) {
+						// Display a custom message when there are no records
+						$('#myTable').html('<tr><td colspan="' + api.columns().nodes().length + '">No records found.</td></tr>');
+					}
+				}
+    		});
+		});
 	</script>
 {% endblock %}

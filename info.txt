@@ -3,6 +3,19 @@
 *xampp
 *scoop package
 
+*in VS Code: 
+
+extentions:
+PHP Intelephense, PHP Namespace Resolver, Twig Language 2, PHP Extension Pack
+
+parametres: <Ctrl + ,  ==>  settings>
+-suggest basic
+decoche
+-format on save
+cochee
+-emmet include language
+add item: twig html
+
 >> scoop install symfony-cli
 >> scoop update symfony-cli
 cd .....
@@ -11,6 +24,7 @@ cd .....
 >> composer require twig-bundle
 >> composer require symfony/maker-bundle --dev
 >> composer require symfony/asset
++++
 >> symfony console make:controller .....
 
 >> symfony serve -d
@@ -37,4 +51,29 @@ PANTHER_ERROR_SCREENSHOT_DIR
 >> symfony console make:migration
 >> symfony console doctrine:migrations:migrate
 
-composer require symfony/property-info
+
+# composer recipes
+composer require 
+ * doctrine/doctrine-bundle
+ * doctrine/doctrine-migrations-bundle        
+ * phpunit/phpunit 
+ * symfony/asset-mapper 
+ * symfony/console 
+ * symfony/debug-bundle 
+ * symfony/flex 
+ * symfony/framework-bundle 
+ * symfony/mailer 
+ * symfony/maker-bundle 
+ * symfony/messenger 
+ * symfony/monolog-bundle 
+ * symfony/notifier 
+ * symfony/phpunit-bridge 
+ * symfony/routing 
+ * symfony/security-bundle
+ * symfony/stimulus-bundle
+ * symfony/translation
+ * symfony/twig-bundle
+ * symfony/ux-turbo
+ * symfony/validator
+ * symfony/web-profiler-bundle
+ * twig/extra-bundle
