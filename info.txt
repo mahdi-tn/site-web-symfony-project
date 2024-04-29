@@ -4,7 +4,6 @@
 *scoop package
 
 *in VS Code: 
-
 extentions:
 PHP Intelephense, PHP Namespace Resolver, Twig Language 2, PHP Extension Pack
 
@@ -50,7 +49,7 @@ PANTHER_ERROR_SCREENSHOT_DIR
 (insertion tables and columns)
 >> symfony console make:migration
 >> symfony console doctrine:migrations:migrate
-
+> php bin/console make:crud
 
 # composer recipes
 composer require 
